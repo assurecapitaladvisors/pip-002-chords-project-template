@@ -16,10 +16,11 @@ class Song(Base):
     def as_dictionary(self):
         song = {
             "id": self.id,
-            "file": {
-                "id": self.file.id,
-                "name": self.file.name
-            }
+            "file": self.file.as_dictionary()
+            #{
+            #    "id": self.file.id,
+            #    "name": self.file.name
+            #}
         }
         return song
     
