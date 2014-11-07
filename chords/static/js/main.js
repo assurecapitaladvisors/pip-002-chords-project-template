@@ -10,7 +10,7 @@ var Chords = function() {
 
     this.chordDiv = $("div#chord div div");
     this.beatDiv = $("div#beat");
-
+    this.tempoDiv = $("div#tempo");
 
     $("#songs").on("click", ".song",
                    this.onSongClicked.bind(this));
@@ -47,6 +47,7 @@ Chords.prototype.onSongClicked = function(event) {
 
 
 Chords.prototype.onGetAnalysisDone = function(data) {
+    this.tempoDiv.text(data.tempo);
     var beats = data.beats;
     for (var i=0; i<beats.length; i++) {
         var beat = beats[i];
