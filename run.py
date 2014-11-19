@@ -1,5 +1,5 @@
 import os
-from chords import app, database
+from stocks import app, database
 
 def run():
     port = int(os.environ.get('PORT', 8080))
