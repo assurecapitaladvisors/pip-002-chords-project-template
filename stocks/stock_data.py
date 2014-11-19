@@ -34,34 +34,25 @@ def run_analysis(data):
     """
     ACTIONS =  {'buy': 'blue', 'sell': 'red'}
     def setup_action(list, action):
-        checkSum = 0
-        haveABadGuy = False
-        for lineIndex in range(12,len(data),3):
+        for lineIndex in range(12,len(data)-42,3):
         #for lineIndex in range(12,len(data)-12,3):
-            bumpedChecksum = False
-            low_high = data[lineIndex]
-            theOpen = data[lineIndex+1]
-            theClose = data[lineIndex+2]
-            theCloseValue = theClose.get_data()[1][0]
-            print "{} {} {}".format(checkSum, theCloseValue, data[lineIndex-10].get_data()[1][0])
-            #if theCloseValue < data[lineIndex-12].get_data()[1][0]:
-            if action == 'buy':
-                if theCloseValue < data[lineIndex-10].get_data()[1][0]:
-                    checkSum = checkSum + 1
-                    bumpedChecksum = True
-            if action == 'sell':
-                if theCloseValue > data[lineIndex-10].get_data()[1][0]:
-                    checkSum = checkSum + 1
-                    bumpedChecksum = True
-            if checkSum >= 12:
-                for i in range(lineIndex-51, lineIndex):
+            checkSum = 0
+            for innerLineIndex in range(lineIndex, lineIndex+42, 3):
+                low_high = data[innerLineIndex]
+                theOpen = data[innerLineIndex+1]
+                theClose = data[innerLineIndex+2]
+                theCloseValue = theClose.get_data()[1][0]
+                print "{} {} {}".format(checkSum, theCloseValue, data[innerLineIndex-10].get_data()[1][0])
+                #if theCloseValue < data[lineIndex-12].get_data()[1][0]:
+                if action == 'buy':
+                    if theCloseValue < data[innerLineIndex-10].get_data()[1][0]:
+                        checkSum = checkSum + 1
+                if action == 'sell':
+                    if theCloseValue > data[innerLineIndex-10].get_data()[1][0]:
+                        checkSum = checkSum + 1
+            if checkSum >= 13:
+                for i in range(innerLineIndex-42, innerLineIndex):
                     data[i].set_c(ACTIONS[action])
-            if not bumpedChecksum:
-                if not haveABadGuy:
-                    haveABadGuy = True
-                else:
-                    checkSum = 0
-                    haveABadGuy = False
     def setup_sell():
         pass
 

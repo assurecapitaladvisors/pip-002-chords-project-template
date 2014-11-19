@@ -22,10 +22,13 @@ def index():
         ticker = form.data['ticker']
 
         # ticker = "CHRIS/CME_CL1"
-        try:
-            graph.graphData(ticker)
-        except BadTickerException:
+        if not ticker:
             tickerIsBad = True
+        else:
+            try:
+                graph.graphData(ticker)
+            except BadTickerException:
+                tickerIsBad = True
             
         # return app.send_static_file("index.html")
         return render_template("index.html", form=form, badTicker=tickerIsBad, ticker=ticker)
